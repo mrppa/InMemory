@@ -29,7 +29,7 @@ import com.mrppa.inmemory.maintainer.Maintainer;
  */
 public class DBDataLoader implements DataLoader {
 	
-	private static Logger log = Logger.getLogger(Maintainer.class.getName());
+	private static Logger log = Logger.getLogger(DBDataLoader.class.getName());
 
 	public void doReadData(CacheSet cacheSet) {
 		log.debug("MTD-doReadData()");

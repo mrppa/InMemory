@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import junit.framework.TestCase;
 
-public class DBTest extends TestCase {
+public class FullTest extends TestCase {
 
 	@Test
 	public void test1() throws IOException {
@@ -25,6 +25,8 @@ public class DBTest extends TestCase {
 		}
 		inMem.printMemory("status");
 		System.out.println(inMem.getDataValue("status", "P2", "BRANCH1"));
+		inMem.printMemory("spdata");
+		System.out.println(inMem.getDataValue("spdata", "FBC", "2563"));
 
 	}
 
