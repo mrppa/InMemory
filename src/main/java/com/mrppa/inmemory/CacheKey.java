@@ -9,14 +9,7 @@ public class CacheKey {
 		keys = new ArrayList<String>();
 	}
 
-	public ArrayList<String> getKeys() {
-		return keys;
-	}
-
-	protected void setKeys(ArrayList<String> keys) {
-		this.keys = keys;
-	}
-
+	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) {
 			return true;
@@ -39,6 +32,10 @@ public class CacheKey {
 
 	}
 
+	public ArrayList<String> getKeys() {
+		return keys;
+	}
+
 	@Override
 	public int hashCode() {
 
@@ -47,6 +44,10 @@ public class CacheKey {
 			completeKey += key;
 		}
 		return completeKey.hashCode();
+	}
+
+	protected void setKeys(ArrayList<String> keys) {
+		this.keys = keys;
 	}
 
 }

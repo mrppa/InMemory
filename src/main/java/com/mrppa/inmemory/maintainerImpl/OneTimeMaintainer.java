@@ -6,25 +6,22 @@ import com.mrppa.inmemory.CacheSet;
 import com.mrppa.inmemory.maintainer.Maintainer;
 
 /**
- * Load Data One time only
- * Special Properties
- *     NA
+ * Load Data One time only Special Properties NA
+ * 
  * @author Pasindu Ariyarathna
  *
  */
 public class OneTimeMaintainer implements Maintainer {
-	
-	private boolean alreadyRun=false;
-	private static Logger log = Logger.getLogger(OneTimeMaintainer.class.getName());
 
+	private static Logger log = Logger.getLogger(OneTimeMaintainer.class.getName());
+	private boolean alreadyRun = false;
 
 	public void doMaintain(CacheSet cacheSet) {
 		log.debug("MTD-doMaintain()");
-		if(alreadyRun==false)
-		{
+		if (alreadyRun == false) {
 			cacheSet.reloadData();
 		}
-		alreadyRun=true;
+		alreadyRun = true;
 	}
 
 }

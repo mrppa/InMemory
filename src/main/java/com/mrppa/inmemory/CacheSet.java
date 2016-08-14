@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import com.mrppa.inmemory.dataloader.DataLoader;
 import com.mrppa.inmemory.maintainer.Maintainer;
+import com.mrppa.inmemory.CacheKey;
 
 public class CacheSet {
 	private String cacheId;
@@ -16,8 +17,16 @@ public class CacheSet {
 		return cacheId;
 	}
 
-	protected void setCacheId(String casheId) {
-		this.cacheId = casheId;
+	public DataLoader getDataLoader() {
+		return dataLoader;
+	}
+
+	public HashMap<CacheKey, String> getDataMap() {
+		return dataMap;
+	}
+
+	public Maintainer getMaintainer() {
+		return maintainer;
 	}
 
 	public boolean isLocked() {
@@ -32,35 +41,27 @@ public class CacheSet {
 		this.locked = false;
 	}
 
-	public DataLoader getDataLoader() {
-		return dataLoader;
+	public void reloadData() {
+		this.lockCacheSet();
+		this.getDataMap().clear();
+		this.dataLoader.doReadData(this);
+		this.releaseLockCacheSet();
+	}
+
+	protected void setCacheId(String casheId) {
+		this.cacheId = casheId;
 	}
 
 	protected void setDataLoader(DataLoader dataLoader) {
 		this.dataLoader = dataLoader;
 	}
 
-	public Maintainer getMaintainer() {
-		return maintainer;
-	}
-
-	protected void setMaintainer(Maintainer maintainer) {
-		this.maintainer = maintainer;
-	}
-
-	public HashMap<CacheKey, String> getDataMap() {
-		return dataMap;
-	}
-
 	protected void setDataMap(HashMap<CacheKey, String> dataMap) {
 		this.dataMap = dataMap;
 	}
 
-	public void reloadData() {
-		this.lockCacheSet();
-		this.getDataMap().clear();
-		this.dataLoader.doReadData(this);
-		this.releaseLockCacheSet();
+	protected void setMaintainer(Maintainer maintainer) {
+		this.maintainer = maintainer;
 	}
 
 }

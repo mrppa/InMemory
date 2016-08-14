@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -15,6 +14,21 @@ import com.mrppa.inmemory.CacheSet;
 import com.mrppa.inmemory.InMemoryProperties;
 import com.mrppa.inmemory.dataloader.DataLoader;
 
+/**
+ * Load Data from given database Properties
+ * 
+ * <pre>
+ *   InMemory.[Cache ID].dataloader.nu_of_keys=[NUMBER OF KEYS IN ORDER]
+ *   InMemory.[Cache ID].dataloader.sql=[SQL SCRIPT ex-SELECT key1,key2,....,value from table1]
+ *   InMemory.[Cache ID].dataloader.hibernate.connection.driver_class=[JDBC DRIVER]
+ *   InMemory.[Cache ID].dataloader.hibernate.connection.url=[DB CONN URL]
+ *   InMemory.[Cache ID].dataloader.hibernate.connection.username=[DB USERID]
+ *   InMemory.[Cache ID].dataloader.hibernate.connection.password=[DB Password]
+ * </pre>
+ * 
+ * @author Pasindu Ariyarathna
+ *
+ */
 public class CSVLoader implements DataLoader {
 
 	private static Logger log = Logger.getLogger(CSVLoader.class.getName());
@@ -51,10 +65,10 @@ public class CSVLoader implements DataLoader {
 						String[] colArr = strLine.split(delimiter);
 						CacheKey cacheKey = new CacheKey();
 						for (String keyInd : keyColumnIndArr) {
-							String keyVal = colArr[Integer.parseInt(keyInd)-1];
+							String keyVal = colArr[Integer.parseInt(keyInd) - 1];
 							cacheKey.getKeys().add(keyVal);
 						}
-						String dataVal = colArr[Integer.parseInt(valColumn)-1];
+						String dataVal = colArr[Integer.parseInt(valColumn) - 1];
 						cacheSet.getDataMap().put(cacheKey, dataVal);
 					} catch (Exception e) {
 						log.error("Data reading error", e);

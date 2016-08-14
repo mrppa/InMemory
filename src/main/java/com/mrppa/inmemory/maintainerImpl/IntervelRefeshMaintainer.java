@@ -12,26 +12,30 @@ import com.mrppa.inmemory.InMemoryProperties;
 import com.mrppa.inmemory.maintainer.Maintainer;
 
 /**
- * Periodically Refresh Data
- * Properties
- *   InMemory.<Cache ID>.maintainer.delay=<Delay in Milli seconds>
+ * Periodically Refresh Data Properties InMemory.
+ * 
+ * <pre>
+ * [Cache ID].maintainer.delay=[Delay in Milli seconds]
+ * </pre>
+ * 
  * @author Pasindu
  *
  */
 public class IntervelRefeshMaintainer implements Maintainer {
 
-	private boolean alreadyRun = false;
 	private static Logger log = Logger.getLogger(IntervelRefeshMaintainer.class.getName());
+	private boolean alreadyRun = false;
 	private CacheSet cachesetObj;
 
 	public void doMaintain(CacheSet cacheset) {
-		cachesetObj=cacheset;
+		cachesetObj = cacheset;
 		log.debug("MTD-doMaintain()");
 		if (alreadyRun == false) {
 			cacheset.reloadData();
 		}
 		alreadyRun = true;
-		int delay = InMemoryProperties.getInstance().getIntPropertyValue("InMemory."+cacheset.getCacheId()+".maintainer.delay"); // milliseconds
+		int delay = InMemoryProperties.getInstance()
+				.getIntPropertyValue("InMemory." + cacheset.getCacheId() + ".maintainer.delay"); // milliseconds
 		ActionListener taskPerformer = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				log.info("Maintain task started");

@@ -1,9 +1,17 @@
 package com.mrppa.inmemory.maintainer;
 
 import com.mrppa.inmemory.CacheSet;
-import com.mrppa.inmemory.dataloader.DataLoader;
 
+/**
+ * This Class hold the interface to the maintainng implementations
+ * @author Pasindu Ariyarathna
+ *
+ */
 public interface Maintainer {
-	
-	public void doMaintain(CacheSet cacheSet);	
+
+	/**
+	 * Startup maintain logic for given CacheSet
+	 * @param cacheSet CacheSet Object
+	 */
+	public void doMaintain(CacheSet cacheSet);
 }
