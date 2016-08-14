@@ -15,15 +15,15 @@ import com.mrppa.inmemory.InMemoryProperties;
 import com.mrppa.inmemory.dataloader.DataLoader;
 
 /**
- * Load Data from given database Properties
+ * Load Data from given CSV File.
+ * Properties
  * 
  * <pre>
- *   InMemory.[Cache ID].dataloader.nu_of_keys=[NUMBER OF KEYS IN ORDER]
- *   InMemory.[Cache ID].dataloader.sql=[SQL SCRIPT ex-SELECT key1,key2,....,value from table1]
- *   InMemory.[Cache ID].dataloader.hibernate.connection.driver_class=[JDBC DRIVER]
- *   InMemory.[Cache ID].dataloader.hibernate.connection.url=[DB CONN URL]
- *   InMemory.[Cache ID].dataloader.hibernate.connection.username=[DB USERID]
- *   InMemory.[Cache ID].dataloader.hibernate.connection.password=[DB Password]
+ *   InMemory.[Cache ID].dataloader.filename=[CSV FILE PATH]
+ *   InMemory.[Cache ID].dataloader.delimiter=[CSV delimiter]
+ *   InMemory.[Cache ID].dataloader.key_columns=[Key Column numbers in comma separated manner]
+ *   InMemory.[Cache ID].dataloader.val_column=[Column Value number]
+ *   InMemory.[Cache ID].dataloader.first_line=[Line number of the first column of dataset]
  * </pre>
  * 
  * @author Pasindu Ariyarathna

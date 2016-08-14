@@ -16,6 +16,8 @@
 		<log4j.version>1.2.17</log4j.version>
 		<hibernate.version>4.3.10.Final</hibernate.version>
 		<postgresql.version>9.1-901-1.jdbc4</postgresql.version>
+		<apache_poi_ooxml.version>3.11</apache_poi_ooxml.version>
+	
 	</properties>
 
 	<dependencies>
@@ -39,6 +41,11 @@
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${apache_poi_ooxml.version}</version>
 		</dependency>
 	</dependencies>
 </project>

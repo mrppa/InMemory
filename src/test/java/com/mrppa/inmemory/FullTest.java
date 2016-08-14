@@ -55,5 +55,14 @@ public class FullTest extends TestCase {
 		System.out.println("test2_DBTest Completed");
 
 	}
+	
+	@Test
+	public void test4_XLSXTest() {
+		System.out.println("test4_XLSXTest Start");
+		InMemory inMem = InMemory.getInstance();
+		inMem.printMemory("xlsxdata");
+		assertEquals("Alfie", inMem.getDataValue("xlsxdata", "65949", "Sydney"));
+		System.out.println("test4_XLSXTest Completed");
+	}
 
 }
