@@ -1,10 +1,20 @@
 0.1.0   2016-08-14
 ------------------
-	-Increase Versioning
+	-Update Version
 
 0.0.2	2016-08-14
 ------------------
 	-XLSX Format support
+	
+	
+		2016-08-27
+------------------
+	-Organise Test Cases
+	-Record dump facility
+	-Flat file input support
+	
+	
+	
 	
 	
 	
