@@ -11,6 +11,8 @@ public class FullTest extends TestCase {
 
 	public void test1() {
 		System.out.println("Test1 Start");
+		InMemory.resetInstance();
+		InMemoryProperties.PROP_FILE_NAME="InMemory.properties";
 		InMemory inMem = InMemory.getInstance();
 
 		System.out.println("WAIT TO CHECK THE RELOADING PART...");
@@ -30,6 +32,8 @@ public class FullTest extends TestCase {
 		InMemory inMem = InMemory.getInstance();
 		inMem.printMemory("product");
 		inMem.printMemory("status");
+		assertEquals("Branch 1 Product 1", inMem.getDataValue("product", "P1", "BRANCH1"));
+		inMem.ResetDataSet("product");
 		assertEquals("Branch 1 Product 1", inMem.getDataValue("product", "P1", "BRANCH1"));
 		assertEquals("Branch 1 Product 2", inMem.getDataValue("status", "P2", "BRANCH1"));
 		assertNull(inMem.getDataValue("product", "PN", "BRANCHN"));

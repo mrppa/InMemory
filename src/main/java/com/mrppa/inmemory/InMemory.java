@@ -1,7 +1,19 @@
 package com.mrppa.inmemory;
 
+import java.awt.image.BufferedImageFilter;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
@@ -44,6 +56,13 @@ public class InMemory {
 		return inMemoryInstance;
 	}
 
+	/**
+	 * This is highly inadvisable to use. Only for testing purposes.
+	 */
+	public static synchronized void resetInstance() {
+		inMemoryInstance = null;
+	}
+
 	private InMemory() {
 	}
 
@@ -54,9 +73,11 @@ public class InMemory {
 	/**
 	 * To get the memory value of given keys
 	 * 
-	 * @param cacheSetId	set id given in configuration
-	 * @param keys			key parameters
-	 * @return 				the respective memory value
+	 * @param cacheSetId
+	 *            set id given in configuration
+	 * @param keys
+	 *            key parameters
+	 * @return the respective memory value
 	 */
 	public String getDataValue(String cacheSetId, String... keys) {
 		CacheSet cacheSet = this.findCacheSetByID(cacheSetId);
@@ -153,7 +174,8 @@ public class InMemory {
 	/**
 	 * print the memory value of a set
 	 * 
-	 * @param cacheSetId Cache Set Id
+	 * @param cacheSetId
+	 *            Cache Set Id
 	 */
 	public void printMemory(String cacheSetId) {
 		CacheSet cacheSet = this.findCacheSetByID(cacheSetId);
@@ -172,6 +194,73 @@ public class InMemory {
 			log.info("END PRINT MEMORY-" + cacheSet.getCacheId());
 		} else {
 			log.info("CACHE SET NOT FOUND-" + cacheSetId);
+		}
+	}
+
+	/**
+	 * Reset and read data again
+	 * 
+	 * @param cacheSetId
+	 *            set id
+	 */
+	public void ResetDataSet(String cacheSetId) {
+		log.info(new StringBuffer("ResetDataSet:\t").append(cacheSetId));
+
+		CacheSet cacheSet = this.findCacheSetByID(cacheSetId);
+		if (cacheSet != null) {
+			cacheSet.reloadData();
+		}
+
+	}
+
+	/**
+	 * Dump Data .For troubleshooting purposes only
+	 */
+	public void dumpData() {
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		File file = new File("DUMP_" + sdf.format(date) + ".dat");
+		Runtime runtime = Runtime.getRuntime();
+		NumberFormat format = NumberFormat.getInstance();
+
+		PrintWriter out = null;
+		try {
+			out = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+			out.println("*************************************************************************");
+			out.println("DATA DUMP " + sdf.format(date));
+			out.println("\tTOTAL MEMORY\t:"+format.format(runtime.totalMemory()/1024));
+			out.println("\tMAX MEMORY\t:"+format.format(runtime.maxMemory()/1024));
+			out.println("\tFREE MEMORY\t:"+format.format(runtime.freeMemory()/1024));
+			out.println("*************************************************************************");
+			Iterator it = memoryMap.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				CacheSet cacheSet = (CacheSet) pair.getValue();
+				out.println("------------------------------------------------------------------------------");
+				out.println("\tCACHE SET\t:" + cacheSet.getCacheId());
+				
+				Iterator<Entry<CacheKey, String>> it1 = cacheSet.getDataMap().entrySet().iterator();
+				while (it1.hasNext()) {
+					String record = "\t\t";
+					CacheKey cacheKey = it1.next().getKey();
+					for (String key : cacheKey.getKeys()) {
+						record += key + "\t";
+					}
+					record += "\t-\t" + cacheSet.getDataMap().get(cacheKey);
+					out.println(record);
+				}
+				
+				out.println("------------------------------------------------------------------------------");
+				out.flush();
+			}
+		} catch (IOException e) {
+			log.fatal("Error while wring dump file");
+			e.printStackTrace();
+		} finally {
+			if (out != null) {
+				out.flush();
+				out.close();
+			}
 		}
 	}
 

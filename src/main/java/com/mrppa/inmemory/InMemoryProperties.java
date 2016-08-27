@@ -12,15 +12,15 @@ import org.apache.log4j.Logger;
 public class InMemoryProperties {
 	private static Logger log = Logger.getLogger(InMemoryProperties.class.getName());
 	private static InMemoryProperties inMemoryProperties = null;
+	protected static String PROP_FILE_NAME="InMemory.properties";
 
 	public static InMemoryProperties getInstance() {
 		if (inMemoryProperties == null) {
 			synchronized (InMemoryProperties.class) {
 				inMemoryProperties = new InMemoryProperties();
 				inMemoryProperties.prop = new Properties();
-				String propFileName = "InMemory.properties";
-
-				InputStream inputStream = inMemoryProperties.getClass().getClassLoader().getResourceAsStream(propFileName);
+				
+				InputStream inputStream = inMemoryProperties.getClass().getClassLoader().getResourceAsStream(PROP_FILE_NAME);
 
 				try {
 					inMemoryProperties.prop.load(inputStream);
