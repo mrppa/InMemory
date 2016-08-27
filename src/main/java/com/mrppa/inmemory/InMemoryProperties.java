@@ -14,6 +14,11 @@ public class InMemoryProperties {
 	private static InMemoryProperties inMemoryProperties = null;
 	protected static String PROP_FILE_NAME="InMemory.properties";
 
+	protected static void resetInstance()
+	{
+		inMemoryProperties = null;
+	}
+	
 	public static InMemoryProperties getInstance() {
 		if (inMemoryProperties == null) {
 			synchronized (InMemoryProperties.class) {

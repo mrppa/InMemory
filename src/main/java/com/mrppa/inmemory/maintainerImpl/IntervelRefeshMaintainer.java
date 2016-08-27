@@ -26,6 +26,7 @@ public class IntervelRefeshMaintainer implements Maintainer {
 	private static Logger log = Logger.getLogger(IntervelRefeshMaintainer.class.getName());
 	private boolean alreadyRun = false;
 	private CacheSet cachesetObj;
+	protected Timer timer = null;
 
 	public void doMaintain(CacheSet cacheset) {
 		cachesetObj = cacheset;
@@ -43,6 +44,7 @@ public class IntervelRefeshMaintainer implements Maintainer {
 				log.info("Maintain task Ended");
 			}
 		};
-		new Timer(delay, taskPerformer).start();
+		timer=new Timer(delay, taskPerformer);
+		timer.start();
 	}
 }

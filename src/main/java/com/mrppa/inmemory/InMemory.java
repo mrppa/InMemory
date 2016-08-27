@@ -59,14 +59,16 @@ public class InMemory {
 	/**
 	 * This is highly inadvisable to use. Only for testing purposes.
 	 */
-	public static synchronized void resetInstance() {
+	protected static synchronized void resetInstance() {
+		log.info("resetInstance()");
 		inMemoryInstance = null;
+		InMemoryProperties.resetInstance();
 	}
 
 	private InMemory() {
 	}
 
-	private CacheSet findCacheSetByID(String cacheSetId) {
+	protected CacheSet findCacheSetByID(String cacheSetId) {
 		return memoryMap.get(cacheSetId);
 	}
 
